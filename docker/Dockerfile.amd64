@@ -1,4 +1,4 @@
-#FROM [ORG/IMAGE:TAG]
+FROM saspus/duplicacy-web:v1.5.0
 # TO add bash to a minimal image:
 #FROM vault:1.1.1 as base
 #FROM alpine:3.10
@@ -18,10 +18,9 @@
 
 #
 ### Set up the CMD as well as the pre and post hooks.
-#COPY go-init /bin/go-init
-#COPY entrypoint.sh /usr/bin/entrypoint.sh
-#COPY exitpoint.sh /usr/bin/exitpoint.sh
+COPY go-init /bin/go-init
+COPY entrypoint.sh /usr/bin/entrypoint.sh
+COPY exitpoint.sh /usr/bin/exitpoint.sh
 #
-#ENTRYPOINT ["go-init"]
-#CMD ["-main", "/usr/bin/entrypoint.sh", "-post", "/usr/bin/exitpoint.sh"]
-#
+ENTRYPOINT ["go-init"]
+CMD ["-main", "/usr/bin/entrypoint.sh /usr/local/bin/init.sh", "-post", "/usr/bin/exitpoint.sh"]
